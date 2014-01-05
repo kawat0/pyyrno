@@ -8,8 +8,8 @@ Pyyrno is a simple Python library that gets its data by parsing the forecast XML
 builds weather data for the norwegian town Bergen, in norwegian.
 
 Keyword arguments:
-        -location -- format "Country/County/Municipality/City"
-        -lang -- "en": english, "no": norwegian bokmål, "nn": nynorsk
+-location: format "Country/County/Municipality/City"
+-lang: "en": english, "no": norwegian bokmål, "nn": nynorsk
 
 ## Data structure
 The weather data is accessed with `PyYrno.forecast` built as a dictionary, 
@@ -30,3 +30,4 @@ The weather data is accessed with `PyYrno.forecast` built as a dictionary,
 
 
 Weather forecast from yr.no, delivered by the Norwegian Meteorological Institute and the NRK.
+The weather data is provided for free. However, please keep queries down to a minimum, and use cached data when developing. 
