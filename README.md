@@ -17,9 +17,8 @@ The weather data is accessed with `PyYrno.forecast` built as a dictionary,
 {
 'pressure': {'value': '994.3', 'unit': 'hPa'}, 
 'temperature': {'value': '7', 'unit': 'celsius'}, 
-'precipitation': {'maxvalue': '2.6', 'minvalue': '0.9', 
-'value': '1.7'}, 'date': {'to': '2014-01-05T18:00:00', 
-'period': '2', 'from': '2014-01-05T13:00:00'}, 
+'precipitation': {'maxvalue': '2.6', 'minvalue': '0.9', 'value': '1.7'}, 
+'date': {'to': '2014-01-05T18:00:00', 'period': '2', 'from': '2014-01-05T13:00:00'}, 
 'sky': {'name': 'Rain', 'number': '9', 'var': '09'}, 
 'wind': {
       'direction': {'code': 'SSE', 'name': 'South-southeast', 'deg': '149.3'}, 
