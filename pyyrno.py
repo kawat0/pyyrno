@@ -40,8 +40,8 @@ class PyYrno:
         Parsing the xml weather data under <forecast><tabular>, passing a list of all the elements and values for each item into parse_data().
         """
 
-        #tree = etree.parse(urllib.request.urlopen(url)) #Get from feed
-        tree = etree.parse("forecast.xml") #Local test XML
+        tree = etree.parse(urllib.request.urlopen(url)) #Get from feed
+        #tree = etree.parse("forecast.xml") #Local test XML
         root = tree.getroot()
         forecasts = []
         #Parses the first time element and its children.
