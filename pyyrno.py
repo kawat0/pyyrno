@@ -6,6 +6,7 @@
 #2014 martin.hagerup(at)gmail.com
 
 import urllib.request
+import urllib.error
 import xml.etree.ElementTree as etree
 """
 This module provides a simple library to parse weather forecast data from Yr.no's free forecast service.
@@ -16,7 +17,7 @@ class PyYrno:
 
         Keyword arguments:
         location -- format "Country/County/Municipality/City"
-        lang -- "en": english, "no": norwegian bokmål, "nn": nynorsk
+        lang -- "en": english, "no": norwegian bokmal, "nn": nynorsk
 
         Example:
 
@@ -32,6 +33,7 @@ class PyYrno:
 
     def update(self):
         """Fetch updated forecast."""
+        #print("Forecast data up to date")
         self.forecast = self.fetch_forecast(self.yr_url)
 
     def fetch_forecast(self, url):
@@ -40,20 +42,25 @@ class PyYrno:
         Parsing the xml weather data under <forecast><tabular>, passing a list of all the elements and values for each item into parse_data().
         """
 
-        tree = etree.parse(urllib.request.urlopen(url)) #Get from feed
-        #tree = etree.parse("forecast.xml") #Local test XML
-        root = tree.getroot()
-        forecasts = []
-        #Parses the first time element and its children.
-        for time in root[5][1].iter("time"):
-            forecast_message = []
-            forecast_message.append(time.attrib)
-            #get the child elements in time parent
-            for child in time:
-                forecast_message.append(child.attrib)
-            forecasts.append(forecast_message)
+        try:
+            tree = etree.parse(urllib.request.urlopen(url)) #Get from feed
 
-        return self.parse_data(forecasts)
+            #tree = etree.parse("forecast.xml") #Local test XML
+            root = tree.getroot()
+            forecasts = []
+            #Parses the first time element and its children.
+            for time in root[5][1].iter("time"):
+                forecast_message = []
+                forecast_message.append(time.attrib)
+                #get the child elements in time parent
+                for child in time:
+                    forecast_message.append(child.attrib)
+                forecasts.append(forecast_message)
+
+            return self.parse_data(forecasts)
+
+        except urllib.error.URLError:
+            return
 
     def parse_data(self, forecasts):
         """Returns the forecast in a map structure.
@@ -83,4 +90,7 @@ class PyYrno:
 if __name__== "__main__":
     #y = PyYrno("Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim", "no")
     b = PyYrno("Norway/Hordaland/Bergen/Bergen/", "en")
-    print(b.forecast[0])
+    try:
+        print(b.forecast[0])
+    except TypeError:
+        print("Whoopsie!")
